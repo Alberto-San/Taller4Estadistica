@@ -26,7 +26,7 @@ from sklearn.linear_model import LinearRegression
 from sklearn.linear_model import RANSACRegressor
 from sklearn.model_selection import train_test_split
 
-from STG import *
+from Taller4Estadistica.STG import *
 
 
 def imputation_data(data_processed):
