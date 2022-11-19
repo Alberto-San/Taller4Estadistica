@@ -13,8 +13,11 @@ from sklearn.linear_model import RANSACRegressor
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.ensemble import StackingRegressor
+from sklearn.neural_network import MLPRegressor
+from sklearn.ensemble import RandomForestRegressor
 import matplotlib.pyplot as plt
 from sklearn.svm import SVR
+from sklearn.tree import DecisionTreeRegressor
 
 #MAE por debajo de 0.05
 class ExperimentData:
@@ -302,6 +305,88 @@ class svmRegressor(Metrics_Regression):
 
     def trainSVMLinearRegression(self, input_features_train, output_feature_train, kernel, gamma, coef0, C):
         regressor = SVR(kernel = kernel, gamma=gamma, coef0=coef0, C=C)
+        regressor.fit(input_features_train, output_feature_train)
+        return regressor
+
+    def apply(self, data_raw, output_feature, description, sample=1):
+        metadata = {}
+        metadataExperiment = ExperimentData().apply(data_raw, output_feature, sample)
+        LR = self.trainSVMLinearRegression(
+                metadataExperiment["input_features_train"],
+                metadataExperiment["output_feature_train"],
+                kernel=self.kernel,
+                gamma=self.gamma,
+                coef0=self.coef0,
+                C=self.C
+            )
+        metric_information = self.get_model_metadata(
+                LR, 
+                metadataExperiment["input_features_test"], 
+                metadataExperiment["output_feature_test"], 
+                description
+            )
+        metadata["regressor"] = LR 
+        metadata["metric_information"] = metric_information
+        return metadata
+
+class mlpRegressor(Metrics_Regression):
+
+    def trainSVMLinearRegression(self, input_features_train, output_feature_train):
+        regressor = MLPRegressor(random_state=1)
+        regressor.fit(input_features_train, output_feature_train)
+        return regressor
+
+    def apply(self, data_raw, output_feature, description, sample=1):
+        metadata = {}
+        metadataExperiment = ExperimentData().apply(data_raw, output_feature, sample)
+        LR = self.trainSVMLinearRegression(
+                metadataExperiment["input_features_train"],
+                metadataExperiment["output_feature_train"],
+                kernel=self.kernel,
+                gamma=self.gamma,
+                coef0=self.coef0,
+                C=self.C
+            )
+        metric_information = self.get_model_metadata(
+                LR, 
+                metadataExperiment["input_features_test"], 
+                metadataExperiment["output_feature_test"], 
+                description
+            )
+        metadata["regressor"] = LR 
+        metadata["metric_information"] = metric_information
+        return metadata
+
+class rfRegressor(Metrics_Regression):
+    def trainSVMLinearRegression(self, input_features_train, output_feature_train):
+        regressor = RandomForestRegressor(random_state=1)
+        regressor.fit(input_features_train, output_feature_train)
+        return regressor
+
+    def apply(self, data_raw, output_feature, description, sample=1):
+        metadata = {}
+        metadataExperiment = ExperimentData().apply(data_raw, output_feature, sample)
+        LR = self.trainSVMLinearRegression(
+                metadataExperiment["input_features_train"],
+                metadataExperiment["output_feature_train"],
+                kernel=self.kernel,
+                gamma=self.gamma,
+                coef0=self.coef0,
+                C=self.C
+            )
+        metric_information = self.get_model_metadata(
+                LR, 
+                metadataExperiment["input_features_test"], 
+                metadataExperiment["output_feature_test"], 
+                description
+            )
+        metadata["regressor"] = LR 
+        metadata["metric_information"] = metric_information
+        return metadata
+
+class dtRegressor(Metrics_Regression):
+    def trainSVMLinearRegression(self, input_features_train, output_feature_train):
+        regressor = DecisionTreeRegressor(random_state=1)
         regressor.fit(input_features_train, output_feature_train)
         return regressor
 
