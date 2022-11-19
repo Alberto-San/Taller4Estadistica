@@ -323,7 +323,8 @@ class svmRegressor(Metrics_Regression):
                 LR, 
                 metadataExperiment["input_features_test"], 
                 metadataExperiment["output_feature_test"], 
-                description
+                description,
+                is_linear_regression=True
             )
         metadata["regressor"] = LR 
         metadata["metric_information"] = metric_information
@@ -347,7 +348,8 @@ class mlpRegressor(Metrics_Regression):
                 LR, 
                 metadataExperiment["input_features_test"], 
                 metadataExperiment["output_feature_test"], 
-                description
+                description,
+                is_linear_regression=True
             )
         metadata["regressor"] = LR 
         metadata["metric_information"] = metric_information
@@ -370,7 +372,8 @@ class rfRegressor(Metrics_Regression):
                 LR, 
                 metadataExperiment["input_features_test"], 
                 metadataExperiment["output_feature_test"], 
-                description
+                description,
+                is_linear_regression=True
             )
         metadata["regressor"] = LR 
         metadata["metric_information"] = metric_information
@@ -393,7 +396,8 @@ class dtRegressor(Metrics_Regression):
                 LR, 
                 metadataExperiment["input_features_test"], 
                 metadataExperiment["output_feature_test"], 
-                description
+                description,
+                is_linear_regression=True
             )
         metadata["regressor"] = LR 
         metadata["metric_information"] = metric_information
