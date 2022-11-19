@@ -294,8 +294,7 @@ class stackingRegressor(Metrics_Regression):
         return metadata
 
 class svmRegressor(Metrics_Regression):
-    def __init__(self, sample=1, kernel="rbf", gamma="scale", coef0=0.0, C=1.0):
-        self.sample=sample 
+    def __init__(self, kernel="rbf", gamma="scale", coef0=0.0, C=1.0):
         self.kernel=kernel
         self.gamma=gamma
         self.coef0=coef0 
@@ -307,9 +306,9 @@ class svmRegressor(Metrics_Regression):
         regressor.fit(input_features_train, y_train)
         return regressor
 
-    def apply(self, data_raw, output_feature, description):
+    def apply(self, data_raw, output_feature, description, sample=1):
         metadata = {}
-        metadataExperiment = ExperimentData().apply(data_raw, output_feature, self.sample)
+        metadataExperiment = ExperimentData().apply(data_raw, output_feature, sample)
         LR = self.trainSVMLinearRegression(
                 metadataExperiment["input_features_train"],
                 metadataExperiment["output_feature_train"],
