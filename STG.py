@@ -301,9 +301,8 @@ class svmRegressor(Metrics_Regression):
         self.C=C
 
     def trainSVMLinearRegression(self, input_features_train, output_feature_train, kernel, gamma, coef0, C):
-        y_train = output_feature_train.reshape(-1,1)
         regressor = SVR(kernel = kernel, gamma=gamma, coef0=coef0, C=C)
-        regressor.fit(input_features_train, y_train)
+        regressor.fit(input_features_train, output_feature_train)
         return regressor
 
     def apply(self, data_raw, output_feature, description, sample=1):
