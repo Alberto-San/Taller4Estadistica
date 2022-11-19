@@ -196,9 +196,9 @@ class RawLinearRegression(Metrics_Regression):
         )
         return score_df
 
-    def apply(self, data_raw, output_feature, description, sample=1):
+    def apply(self, metadataExperiment, description):
         metadata = {}
-        metadataExperiment = ExperimentData().apply(data_raw, output_feature, sample)
+        #metadataExperiment = ExperimentData().apply(data_raw, output_feature, sample)
         LR = self.trainLinearRegression(
             metadataExperiment["input_features_train"],
             metadataExperiment["output_feature_train"]
@@ -234,9 +234,9 @@ class RobustLinearRegression(Metrics_Regression):
         MR.fit(input_features_train, output_feature_train)
         return MR
 
-    def apply(self, data_raw, output_feature, description, sample=1):
+    def apply(self, metadataExperiment, description):
         metadata = {}
-        metadataExperiment = ExperimentData().apply(data_raw, output_feature, sample)
+        #metadataExperiment = ExperimentData().apply(data_raw, output_feature, sample)
         LR = self.trainRobustLinearRegression(
             metadataExperiment["input_features_train"],
             metadataExperiment["output_feature_train"]
@@ -279,9 +279,9 @@ class stackingRegressor(Metrics_Regression):
         SCR.fit(input_features_train, output_feature_train)
         return SCR
 
-    def apply(self, data_raw, output_feature, description, sample=1):
+    def apply(self, metadataExperiment, description):
         metadata = {}
-        metadataExperiment = ExperimentData().apply(data_raw, output_feature, sample)
+        #metadataExperiment = ExperimentData().apply(data_raw, output_feature, sample)
         LR = self.trainRobustLinearRegression(
                 metadataExperiment["input_features_train"],
                 metadataExperiment["output_feature_train"]
@@ -308,9 +308,9 @@ class svmRegressor(Metrics_Regression):
         regressor.fit(input_features_train, output_feature_train)
         return regressor
 
-    def apply(self, data_raw, output_feature, description, sample=1):
+    def apply(self, metadataExperiment, description):
         metadata = {}
-        metadataExperiment = ExperimentData().apply(data_raw, output_feature, sample)
+        #metadataExperiment = ExperimentData().apply(data_raw, output_feature, sample)
         LR = self.trainSVMLinearRegression(
                 metadataExperiment["input_features_train"],
                 metadataExperiment["output_feature_train"],
@@ -337,9 +337,9 @@ class mlpRegressor(Metrics_Regression):
         regressor.fit(input_features_train, output_feature_train)
         return regressor
 
-    def apply(self, data_raw, output_feature, description, sample=1):
+    def apply(self, metadataExperiment, description):
         metadata = {}
-        metadataExperiment = ExperimentData().apply(data_raw, output_feature, sample)
+        #metadataExperiment = ExperimentData().apply(data_raw, output_feature, sample)
         LR = self.trainSVMLinearRegression(
                 metadataExperiment["input_features_train"],
                 metadataExperiment["output_feature_train"]
@@ -361,9 +361,9 @@ class rfRegressor(Metrics_Regression):
         regressor.fit(input_features_train, output_feature_train)
         return regressor
 
-    def apply(self, data_raw, output_feature, description, sample=1):
+    def apply(self, metadataExperiment, description):
         metadata = {}
-        metadataExperiment = ExperimentData().apply(data_raw, output_feature, sample)
+        #metadataExperiment = ExperimentData().apply(data_raw, output_feature, sample)
         LR = self.trainSVMLinearRegression(
                 metadataExperiment["input_features_train"],
                 metadataExperiment["output_feature_train"]
@@ -385,9 +385,9 @@ class dtRegressor(Metrics_Regression):
         regressor.fit(input_features_train, output_feature_train)
         return regressor
 
-    def apply(self, data_raw, output_feature, description, sample=1):
+    def apply(self, metadataExperiment, description):
         metadata = {}
-        metadataExperiment = ExperimentData().apply(data_raw, output_feature, sample)
+        #metadataExperiment = ExperimentData().apply(data_raw, output_feature, sample)
         LR = self.trainSVMLinearRegression(
                 metadataExperiment["input_features_train"],
                 metadataExperiment["output_feature_train"]
