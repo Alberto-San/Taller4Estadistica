@@ -14,6 +14,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.ensemble import StackingRegressor
 import matplotlib.pyplot as plt
+from sklearn.svm import SVR
 
 #MAE por debajo de 0.05
 class ExperimentData:
@@ -167,15 +168,6 @@ class LinearRegressionPreprocessing:
         output_data_raw = transformer.fit()
         output_data_process = OLSInfluence(output_data_raw)
         th = 0.9*output_data_process.hat_matrix_diag.max()
-        # print(th)
-        # fig, ax = plt.subplots(figsize=(8, 8))
-        # ax.scatter(
-        #         output_data_process.hat_matrix_diag, 
-        #         output_data_process.resid_studentized_internal, 
-        #         s=1000 * np.sqrt(output_data_process.cooks_distance[0]),
-        #         alpha=0.7
-        #     )
-        # plt.show()
         output_data_process=output_data_process.cooks_distance[0]
         samples_filtered = [distance < th for distance in output_data_process]
         input_features_processed = input_features.loc[samples_filtered]
@@ -301,3 +293,37 @@ class stackingRegressor(Metrics_Regression):
         metadata["metric_information"] = metric_information
         return metadata
 
+class svmRegressor(Metrics_Regression):
+    def __init__(self, sample=1, kernel="rbf", gamma="scale", coef0=0.0, C=1.0):
+        self.sample=sample 
+        self.kernel=kernel
+        self.gamma=gamma
+        self.coef0=coef0 
+        self.C=C
+
+    def trainSVMLinearRegression(self, input_features_train, output_feature_train, kernel, gamma, coef0, C):
+        y_train = output_feature_train.reshape(-1,1)
+        regressor = SVR(kernel = kernel, gamma=gamma, coef0=coef0, C=C)
+        regressor.fit(input_features_train, y_train)
+        return regressor
+
+    def apply(self, data_raw, output_feature, description):
+        metadata = {}
+        metadataExperiment = ExperimentData().apply(data_raw, output_feature, self.sample)
+        LR = self.trainSVMLinearRegression(
+                metadataExperiment["input_features_train"],
+                metadataExperiment["output_feature_train"],
+                kernel=self.kernel,
+                gamma=self.gamma,
+                coef0=self.coef0,
+                C=self.C
+            )
+        metric_information = self.get_model_metadata(
+                LR, 
+                metadataExperiment["input_features_test"], 
+                metadataExperiment["output_feature_test"], 
+                description
+            )
+        metadata["regressor"] = LR 
+        metadata["metric_information"] = metric_information
+        return metadata
