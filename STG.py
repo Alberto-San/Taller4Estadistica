@@ -341,11 +341,7 @@ class mlpRegressor(Metrics_Regression):
         metadataExperiment = ExperimentData().apply(data_raw, output_feature, sample)
         LR = self.trainSVMLinearRegression(
                 metadataExperiment["input_features_train"],
-                metadataExperiment["output_feature_train"],
-                kernel=self.kernel,
-                gamma=self.gamma,
-                coef0=self.coef0,
-                C=self.C
+                metadataExperiment["output_feature_train"]
             )
         metric_information = self.get_model_metadata(
                 LR, 
@@ -368,11 +364,7 @@ class rfRegressor(Metrics_Regression):
         metadataExperiment = ExperimentData().apply(data_raw, output_feature, sample)
         LR = self.trainSVMLinearRegression(
                 metadataExperiment["input_features_train"],
-                metadataExperiment["output_feature_train"],
-                kernel=self.kernel,
-                gamma=self.gamma,
-                coef0=self.coef0,
-                C=self.C
+                metadataExperiment["output_feature_train"]
             )
         metric_information = self.get_model_metadata(
                 LR, 
@@ -395,11 +387,7 @@ class dtRegressor(Metrics_Regression):
         metadataExperiment = ExperimentData().apply(data_raw, output_feature, sample)
         LR = self.trainSVMLinearRegression(
                 metadataExperiment["input_features_train"],
-                metadataExperiment["output_feature_train"],
-                kernel=self.kernel,
-                gamma=self.gamma,
-                coef0=self.coef0,
-                C=self.C
+                metadataExperiment["output_feature_train"]
             )
         metric_information = self.get_model_metadata(
                 LR, 
